@@ -4,12 +4,15 @@ import pandas as pd
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 from datetime import datetime, timedelta
+from dotenv import load_dotenv
+
+load_dotenv(dotenv_path = 'opt/airflow/.env')
 
 def get_reddit_posts():
     reddit = praw.Reddit(
-        client_id="dk8Av7gxlcovpTtaCO0Exg",
-        client_secret="Q3We3O6Zb3SrW9WfWIFmHvbmnsVFEA",    
-        user_agent="RedditETL/0.1 by u/Ajaikumar_A"
+        client_id = os.getenv("REDDIT_CLIENT_ID"),
+        client_secret = os.getenv("REDDIT_CLIENT_SECRET"),
+        user_agent = os.getenv("REDDIT_USER_AGENT")
     )
 
     posts = []
