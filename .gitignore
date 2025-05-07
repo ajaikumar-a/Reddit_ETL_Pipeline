@@ -8,4 +8,4 @@ dags/__pycache__/
 logs/
 *.conda
 *.csv
-*.yaml
+docker-compose.yaml
