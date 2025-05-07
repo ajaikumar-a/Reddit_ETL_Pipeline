@@ -7,3 +7,5 @@ __pycache__/
 dags/__pycache__/
 logs/
 *.conda
+*.csv
+*.yaml

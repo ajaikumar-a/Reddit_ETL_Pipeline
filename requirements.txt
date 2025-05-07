@@ -1,3 +1,4 @@
 praw
 pyspark
 python-dotenv
+boto3
