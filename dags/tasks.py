@@ -48,6 +48,20 @@ def upload_to_s3():
         Key = "raw/reddit_posts.json"
     )
 
+# Trigger Glue job for converting JSON to Parquet in S3
+def trigger_glue_job(job_name, arguments):
+    glue_client = boto3.client('glue')
+
+    try:
+        response = glue_client.start_job_run(
+            JobName = job_name, 
+            Arguments = arguments
+        )
+        print(f"Glue job '{job_name}' triggered successfully.")
+    except Exception as e:
+        print(f"Error triggering Glue job: {e}")
+        raise 
+
 with DAG(
     dag_id = "get_reddit_posts", 
     start_date = datetime(2025, 4, 30), 
@@ -63,5 +77,18 @@ with DAG(
         task_id = "upload_to_s3",
         python_callable = upload_to_s3
     )
+    
+    trigger_glue_job_task = PythonOperator(
+        task_id = "trigger_glue_job", 
+        python_callable = trigger_glue_job, 
+        op_kwargs = {
+            'job_name': 'reddit_json_to_parquet', 
+            'arguments': {
+                '--input_path': 's3://project-reddit-etl/raw/reddit_posts.json', 
+                '--output_path': 's3://project-reddit-etl/processed/'
+            }
+        }
+    )
 
-    save_task >> upload_task
+
+    save_task >> upload_task >> trigger_glue_job_task
