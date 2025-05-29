@@ -63,7 +63,7 @@ reddit-etl-pipeline/
 │   └── tasks.py                        # Airflow DAG script
 │   └── data/                      
 │       └── reddit_posts.json           # Raw JSON data from the API
-|   
+|
 ├── glue_job/
 │   └── reddit_json_to_csv.py           # Script for converting JSON into CSV and upload to S3
 │
