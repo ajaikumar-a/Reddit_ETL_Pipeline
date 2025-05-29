@@ -1,4 +1,4 @@
-# Reddit ETL Pipeline with Apache Airflow, AWS Glue, and Redshift
+# Reddit ETL Pipeline
 
 This project demonstrates a complete end-to-end ETL pipeline that extracts data from the Reddit API and processes it through multiple services including Apache Airflow, AWS S3, AWS Glue, and Amazon Redshift using a serverless architecture. The pipeline is containerized using Docker and orchestrated using Airflow.
 
