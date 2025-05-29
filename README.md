@@ -57,7 +57,7 @@ Reddit API → Airflow → S3 (raw) → AWS Glue → S3 (processed) → Lambda �
 ## 📁 Folder Structure
 
 ```bash
-reddit-etl-pipeline/
+Reddit_ETL/
 │
 ├── dags/
 │   └── tasks.py                        # Airflow DAG script
