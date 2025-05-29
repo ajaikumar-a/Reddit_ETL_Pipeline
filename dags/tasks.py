@@ -32,6 +32,7 @@ def get_reddit_posts():
         )
 
     df = pd.DataFrame(posts)
+    df['created_utc'] = df['created_utc'].apply(lambda x: f"{x:.1f}")
 
     # Create output directory if it doesn't exist
     output_dir = "/opt/airflow/dags/data"
@@ -48,7 +49,7 @@ def upload_to_s3():
         Key = "raw/reddit_posts.json"
     )
 
-# Trigger Glue job for converting JSON to Parquet in S3
+# Trigger Glue job for converting JSON to CSV in S3
 def trigger_glue_job(job_name, arguments):
     glue_client = boto3.client('glue')
 
